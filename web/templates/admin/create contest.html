@@ -1,0 +1,65 @@
+{% extends 'admin/admin.html' %}
+{% load static %}
+{% block content %}
+    <div class="raised">
+        <div style="float: left" class="ui raised very padded text secondary segment">
+            <h1>Add Contest</h1>
+
+            <form class="ui form" method="post" action="{% url 'add_contest' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="fields" style="margin-left: 1px">
+                    <div class=class="field">
+                        <label style="color: red">* </label><label>比赛名称</label>
+                        <input type="text" name="title" placeholder="">
+                    </div>
+                </div>
+
+                <div>
+                    <label style="color: red">* </label><label>比赛描述</label>
+                    <div id="my-editormd">
+                        <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc" style="display: None;"></textarea>
+                        <textarea id="my-editormd-html-code" name="my-editormd-html-code" style="display:None;"></textarea>
+                    </div>
+                </div>
+                <div style="float: left; width: 980px">
+                    <div style="float: left; width: 300px">
+                        <label style="color: red">* </label><label>开始时间</label>
+                        <div>
+                            <input id="starttime" name="starttime" type="datetime-local"/>
+                        </div>
+                    </div>
+                    <div style="float:left; width: 300px;padding-left:40px">
+                        <label style="color: red">* </label><label>结束时间</label>
+                        <div>
+                            <input id="stoptime" name="stoptime" type="datetime-local"/>
+                        </div>
+                    </div>
+                    <div style="float:left; width: 300px;padding-left:40px">
+                        <label style="color: red">* </label><label>密码</label>
+                        <div>
+                            <input type="text" name="password" placeholder="">
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" style="float: left">提交</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        $(function() {
+            var testEditor = editormd("my-editormd", {
+                width: "100%",
+                height: 320,
+                path : "/static/editormd/lib/",
+                saveHTMLToTextarea : true,
+                toolbarIcons : function() {
+                    return ["undo", "redo", "|", "bold", "hr", "|", "preview", "watch", "|"]
+                }
+            });
+        });
+    </script>
+{% endblock %}

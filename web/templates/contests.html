@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!--热门比赛开始-->
+    <table class="ui blue selectable table" style="width: 70vw;margin-top: 5vh">
+        <thead>
+        <tr>
+            <th colspan="3">最新比赛</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th style="padding-left: 10px">名称</th>
+            <th style="padding-left: 10px">举办者</th>
+            <th style="padding-left: 10px">开始时间</th>
+            <th style="padding-left: 10px">结束时间</th>
+        </tr>
+        {% for contest in contests %}
+        <tr></tr>
+            <td><a target="_blank" href={% url 'contest' %}{{ contest.competition_name }}>{{ contest.competition_name }}</a></td>
+            <td>{{ contest.email.username }}</td>
+            <td>{{ contest.start_time }}</td>
+            <td>{{ contest.stop_time }}</td>
+
+        {% endfor %}
+        </tbody>
+    </table>
+    <!--热门比赛结束-->
+{% endblock %}

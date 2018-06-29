@@ -1,0 +1,118 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}后台{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/semantic.min.css' %}">
+    <link rel="stylesheet" href="{% static 'editormd/css/editormd.css' %}" />
+
+    {% block style %}
+
+    {% endblock %}
+    <style>
+        #app{
+            background-color: whitesmoke;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <div class="ui vertical sidebar menu overlay visible" style="will-change: transform">
+
+        <div class="item">
+            <a class="ui logo icon image" href="/">
+                <img src="{% static 'img/web.png' %}" style="height: 50px;width: 120px">
+            </a>
+        </div>
+        <!--<a class="item" href="/introduction/getting-started.html">-->
+            <!--<b>create problem</b>-->
+        <!--</a>-->
+        <div class="item">
+            <div class="header">Problem</div>
+            <div class=" ui list">
+                <a class="item" href="{% url 'problem_list' %}">
+                    <i class="cubes icon blue" style="float: left"></i>
+                    <div class="content">
+                        Problem List
+                    </div>
+                </a>
+
+                <a class="item" href="{% url 'add_problem' %}">
+                    <i class="cube  icon blue" style="float: left"></i>
+                    <div class="content">Create Problem</div>
+                </a>
+
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="header">Contest</div>
+            <div class=" ui list">
+                <a class="item"  href="{% url 'contest_list' %}">
+                    <i class="content icon blue" style="float: left"></i>
+                    <div class="content">
+                        Contest List
+                    </div>
+                </a>
+
+                <a class="item"  href="{% url 'add_contest' %}">
+                    <i class="content icon blue" style="float: left"></i>
+                    <div class="content">Create Contest</div>
+                </a>
+
+            </div>
+        </div>
+
+    </div>
+    {% block app %}
+
+    <!--flash组件-->
+    {% if messages %}
+    <script>
+        {% for msg in messages %}
+        alert('{{ msg.message }}');
+        {% endfor %}
+    </script>
+    {% endif %}
+
+    <!--左正文开始-->
+    <div style="margin-left: 40vh" id="content">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    <!--左正文结束-->
+
+    {% endblock %}
+
+
+</div>
+
+</body>
+
+</html>
+
+<!-- 引入组件库 -->
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/semantic.min.js' %}"></script>
+<script src="{% static 'js/vue.min.js' %}"></script>
+<script src="{% static 'js/index.js' %}"></script>
+<script src="{% static 'editormd/editormd.min.js' %}"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {visible: false}
+        }
+    })
+</script>
+<script>
+    $('.dropdown')
+        .dropdown({
+            // you can use any ui transition
+            transition: 'drop'
+        })
+    ;
+</script>
+{% block script %}{% endblock %}

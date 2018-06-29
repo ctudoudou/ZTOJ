@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!--轮播图开始-->
+    <el-carousel trigger="click" :interval="4000" type="card" height="200px" style="width: 70vw;">
+        <el-carousel-item name="0">
+            <div style="text-align: center;padding-top: 50px;background-color: dodgerblue;padding-bottom: 100px;">
+                <h1 class="ui header">ZT Online Judge 0.1 bate</h1>
+                <p>测试运行</p>
+            </div>
+        </el-carousel-item>
+        <el-carousel-item name="1">
+            <img src="{% static 'img/snow.jpg' %}" style="width:800px" alt="{% static 'img/web.png' %}">
+        </el-carousel-item>
+        <el-carousel-item name="2">
+            <img src="{% static 'img/snow.jpg' %}" style="width: 800px" alt="{% static 'img/web.png' %}">
+        </el-carousel-item>
+    </el-carousel>
+    <!--轮播图结束-->
+
+    <!--热门比赛开始-->
+    <table class="ui blue selectable table" style="width: 70vw;margin-top: 5vh">
+        <thead>
+        <tr>
+            <th colspan="3">最新比赛</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th style="padding-left: 10px">名称</th>
+            <th style="padding-left: 10px">举办者</th>
+            <th style="padding-left: 10px">开始时间</th>
+            <th style="padding-left: 10px">结束时间</th>
+        </tr>
+        {% for contest in contests %}
+        <tr>
+            <td><a target="_blank" href={% url 'contest' %}{{ contest.competition_name }}>{{ contest.competition_name }}</a></td>
+            <td>{{ contest.email.username }}</td>
+            <td>{{ contest.start_time }}</td>
+            <td>{{ contest.stop_time }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <!--热门比赛结束-->
+
+    <!--热门试题开始-->
+    <table class="ui olive selectable table" style="width: 70vw;margin-top: 5vh">
+        <thead>
+        <tr>
+            <th colspan="3">最新试题</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th style="padding-left: 10px">题目编号</th>
+            <th style="padding-left: 10px">题目名称</th>
+            <th style="padding-left: 10px">题目来源</th>
+        </tr>
+        {% for problem in problems %}
+        <tr>
+            <td>{{ problem.problem_id }}</td>
+            <td><a href={% url 'problem' %}{{ problem.problem_id }}>{{ problem.title }}</a></td>
+            <td>{{ problem.source }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <!--热门试题结束-->
+{% endblock %}

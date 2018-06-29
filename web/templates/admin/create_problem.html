@@ -1,0 +1,98 @@
+{% extends 'admin/admin.html' %}
+{% load static %}
+
+{% block content %}
+    <!--创建问题开始-->
+    <div class="raised">
+        <div style="float: left" class="ui raised very padded text secondary segment">
+            <h1>Add Problem</h1>
+
+            <form class="ui form" method="post" action="{% url 'add_problem' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="fields" style="margin-left: 1px">
+                    <div class=class="field">
+                        <label style="color: red">* </label><label>题目名称</label>
+                        <input type="text" name="title" placeholder="">
+                    </div>
+                    <div class=class="field" style="margin-left: 20px;">
+                        <label style="color: red">* </label><label>题目标签</label>
+                        <input type="text" name="label" placeholder="">
+                    </div>
+                    <div class=class="field" style="margin-left: 20px;">
+                        <label style="color: red">* </label><label>题目所属</label>
+                        <input type="text" name="source" placeholder="">
+                    </div>
+                    <div class=class="field" style="margin-left: 20px;">
+                        <label style="color: red">* </label><label>是否公开</label>
+                        <select name="public">
+                            <option value="1">公开</option>
+                            <option value="0">不公开</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div>
+                    <label style="color: red">* </label><label>问题描述</label>
+                    <div id="my-editormd">
+                        <textarea id="my-editormd-markdown-doc" name="my-editormd-markdown-doc" style="display: None;"></textarea>
+                        <textarea id="my-editormd-html-code" name="my-editormd-html-code" style="display:None;"></textarea>
+                    </div>
+                </div>
+                <div style="float: left; width: 800px">
+                    <div style="float: left; width: 400px">
+                        <label style="color: red">* </label><label>输入描述</label>
+                        <div>
+                            <textarea style="width: 65vh;height: 45vh" name="cinput"></textarea>
+                        </div>
+                    </div>
+                    <div style="float:left; width: 400px;padding-left:40px">
+                        <label style="color: red">* </label><label>输出描述</label>
+                        <div>
+                            <textarea style="width: 65vh;height: 45vh" name="coutput"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div style="float: left; width: 800px">
+                    <div style="float: left; width: 400px">
+                        <label style="color: red">* </label><label>输入样例</label>
+                        <div>
+                            <textarea style="width: 65vh;height: 45vh" name="sinput"></textarea>
+                        </div>
+                    </div>
+                    <div style="float: left; width: 400px;padding-left:40px">
+                        <label style="color: red">* </label><label>输出样例</label>
+                        <div>
+                            <textarea style="width: 65vh;height: 45vh" name="soutput"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div style="float: left; width: 400px">
+                    <label style="color: red">* </label><label>提示</label>
+                    <div>
+                        <textarea style="width: 65vh;height: 45vh" name="hint"></textarea>
+                    </div>
+                </div>
+                <button type="submit" style="float: left">提交</button>
+            </form>
+        </div>
+
+    </div>
+    <!--创建问题结束-->
+{% endblock %}
+
+{% block script %}
+    <script type="text/javascript">
+        $(function() {
+            var testEditor = editormd("my-editormd", {
+                width: "100%",
+                height: 320,
+                path : "/static/editormd/lib/",
+                saveHTMLToTextarea : true,
+                toolbarIcons : function() {
+                    return ["undo", "redo", "|", "bold", "hr", "|", "preview", "watch", "|"]
+                }
+            });
+        });
+    </script>
+
+{% endblock %}

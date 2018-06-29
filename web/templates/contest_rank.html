@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+{% endblock %}
+
+{% block content %}
+    <table class="ui celled table">
+        <thead>
+        <tr>
+            <th>名字</th>
+            <th>总用时</th>
+            <th>答题数</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for one in ranking %}
+            <tr>
+                <td>{{ one.1.email.username }}</td>
+                <td>{{ one.0 }}</td>
+                <td>{{ one.2 }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
+
+{% block rail %}
+
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <!--热门试题开始-->
+    <table class="ui olive selectable table" style="width: 70vw;margin-top: 5vh">
+        <thead>
+        <tr>
+            <th colspan="3">最新试题</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <th style="padding-left: 10px">题目编号</th>
+            <th style="padding-left: 10px">题目名称</th>
+            <th style="padding-left: 10px">题目来源</th>
+        </tr>
+        {% for problem in problems %}
+        <tr>
+            <td>{{ problem.problem_id }}</td>
+            <td><a href={% url 'problem' %}{{ problem.problem_id }}>{{ problem.title }}</a></td>
+            <td>{{ problem.source }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <!--热门试题结束-->
+{% endblock %}

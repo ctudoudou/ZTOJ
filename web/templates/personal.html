@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <div class="dynamic no example" style="width: 70vw;margin-top: 5vh;margin-left: 15px;">
+        <div class="ui top attached tabular menu">
+            <a class="active blue item" data-tab="all">总排名榜</a>
+            <a class="violet item" data-tab="m">月排名榜</a>
+            <a class="orange item" data-tab="w">周排名榜</a>
+            <a class="olive item" data-tab="t">日排名榜</a>
+        </div>
+        <div class="ui bottom attached active tab segment" data-tab="all"></div>
+        <div class="ui bottom attached tab segment" data-tab="m"></div>
+        <div class="ui bottom attached tab segment" data-tab="w"></div>
+        <div class="ui bottom attached tab segment" data-tab="t"></div>
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $('.dynamic.example .menu .item')
+            .tab({
+                cache: false,
+                // faking API request
+                apiSettings: {
+                    loadingDuration: 300,
+                    mockResponse: function (settings) {
+                        htmlobj = $.ajax({
+                            url: "/rankist?search=" + settings.urlData.tab,
+                            async: false
+                        });
+                        return htmlobj.responseText;
+                    }
+                },
+                context: 'parent',
+                auto: true,
+                path: '/'
+            })
+        ;
+    </script>
+{% endblock %}

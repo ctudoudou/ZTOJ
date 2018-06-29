@@ -1,0 +1,142 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'codemirror-5.37.0/lib/codemirror.css' %}"/>
+    <link rel="stylesheet" href="{% static 'codemirror-5.37.0/theme/dracula.css' %}"/>
+    <style>
+        #code {
+            margin-top: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="ui grid">
+        <!--左侧栏-->
+        <div class="eight wide column" style="background-color: #fffa;padding: 10vh 2vw 10px 2vw;">
+            <h2 class="ui header">{{ problem.title }}
+                <!--             <div class="sub header">Time Limit: 10000/5000 MS (Java/Others) Memory Limit: 65536/32768 K
+                                  (Java/Others)
+                              </div>-->
+            </h2>
+            <div class="ui section divider"></div>
+            <div class="ui red raised segment">
+                <h3 class="ui header">Problem Description</h3>
+                <p>{{ problem.description |safe }}</p>
+            </div>
+            <div class="ui blue raised segment">
+                <h3 class="ui header">Input</h3>
+                <p>{{ problem.cinput }}</p>
+            </div>
+            <div class="ui yellow raised segment">
+                <h3 class="ui header">Output</h3>
+                <p>{{ problem.coutput }}</p>
+            </div>
+            <div class="ui green raised segment">
+                <h3 class="ui header">Sample Input</h3>
+                <p>{{ problem.sinput }}</p>
+            </div>
+            <div class="ui purple raised segment">
+                <h3 class="ui header">Sample Output</h3>
+                <p>{{ problem.soutput }}</p>
+            </div>
+            <div class="ui brown raised segment">
+                <h3 class="ui header">Hint</h3>
+                <p>{{ problem.hint }}</p>
+            </div>
+        </div>
+
+        <!--右侧栏-->
+        <div class="eight wide column" style="padding-left: 0;padding-top: 0;">
+            <!--编辑器-->
+            <form style="position: fixed;width: 50vw;" method="post">
+                {% csrf_token %}
+                <div style="background-color: #282a36 !important;height: 8vh;padding-left: 0.5vw;">
+                    <select class="ui dropdown" name="language">
+                        <option value="C++">C++(gcc4.9)</option>
+                        <option value="C">C</option>
+                        <option value="java">JAVA</option>
+                        <option value="pascal">pascal</option>
+                    </select>
+                    <button class="ui primary button" style="margin-left: 0.5vw;">提交</button>
+                    {% if result %}<button class="ui primary button" style="margin-left: 0.5vw;" disabled>{{ result }}</button>{% endif %}
+                </div>
+                <textarea id="code" name="code">{{ content }}</textarea>
+            </form>
+        </div>
+
+
+    </div>
+{% endblock %}
+
+{% block rail %}
+
+{% endblock %}
+
+{% block script %}
+    <script src="{% static 'codemirror-5.37.0/lib/codemirror.js' %}"></script>
+    <script src="{% static 'codemirror-5.37.0/mode/python/python.js' %}"></script>
+    <script src="{% static 'codemirror-5.37.0/mode/clike/clike.js' %}"></script>
+    <script src="{% static 'codemirror-5.37.0/addon/edit/matchbrackets.js' %}"></script>
+    <script>
+        function change(temp) {
+            editor = CodeMirror.fromTextArea(document.getElementById("code"), {
+                mode: temp,
+                lineNumbers: true,
+                indentUnit: 4,
+                matchBrackets: true,
+                theme: 'dracula',
+                autofocus: true,
+            });
+            editor.setSize('100%', '85vh');
+        }
+
+        change("text/x-csrc");
+
+        $('.ui.dropdown').dropdown({
+            onChange: function (value, text, $selectedItem) {
+                let temp;
+                if (value = 'Python') {
+                    temp = {name: 'python', version: 3}
+                } else if (value = 'JAVA') {
+                    temp = "text/x-java"
+                } else if (value = 'C++(gcc4.9)') {
+                    temp = "text/x-csrc"
+                }
+                {#editor.setOption('mode', temp);#}
+                $('.CodeMirror.cm-s-dracula').remove();
+                change(temp);
+            }
+        });
+    </script>
+
+    {% if token %}
+        <script>
+            setInterval(function () {
+                getMsgNum();
+            }, 1);
+
+            function getMsgNum() {
+                $.ajax({
+                    url: '/api/goal/{{ token }}',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data) {
+                            console.log(data);
+                            {#$("#msgNum").html(data.msgNum);#}
+                            {##}
+                            {#$("#title").html(data.msg.title);#}
+                            {#$("#content").html(data.msg.content);#}
+                        }
+                    }
+                });
+            }
+        </script>
+    {% endif %}
+    <script>
+
+        // api/goal/<token>
+    </script>
+{% endblock %}

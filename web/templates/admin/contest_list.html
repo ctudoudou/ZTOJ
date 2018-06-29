@@ -1,0 +1,14 @@
+{% extends 'admin/admin.html' %}
+{% load static %}
+{% block content %}
+    <div class="ui middle aligned selection list">
+        {% for contest in contests %}
+            <div class="item">
+                <div class="content">
+                    <a><div class="header" style="float: left; font-size: 20px; line-height: 30px; color: blue">比赛名称：{{ contest.competition_name }}</div>
+                        <div class="header" style="float: left; font-size: 20px; line-height: 30px; padding-left: 20px">创建人：{{ contest.email.email }}</div></a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

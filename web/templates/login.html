@@ -1,0 +1,130 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <!-- Standard Meta -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+    <!-- Site Properties -->
+    <title>登陆</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/semantic.min.css' %}">
+
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script src="{% static 'js/semantic.min.js' %}"></script>
+
+    <style type="text/css">
+        body {
+            background-color: #DADADA;
+        }
+
+        body > .grid {
+            height: 100%;
+        }
+
+        .column {
+            max-width: 450px;
+        }
+
+        #ma {
+            margin-top: 190vh;
+        }
+
+        @media screen and (-webkit-min-device-pixel-ratio: 0) {
+            #ma {
+                margin-top: 95vh;
+            }
+        }
+
+
+    </style>
+    <script>
+        $(document)
+            .ready(function () {
+                $('.ui.form')
+                    .form({
+                        fields: {
+                            email: {
+                                identifier: 'email',
+                                rules: [
+                                    {#{#}
+                                    {#    type: 'empty',#}
+                                    {#    prompt: '请输入你的邮箱'#}
+                                    {#\},#}
+                                    {
+                                        type: 'email',
+                                        prompt: '请输入一个正确的邮箱'
+                                    }
+                                ]
+                            },
+                            password: {
+                                identifier: 'password',
+                                rules: [
+                                    {#{#}
+                                    {#    type: 'empty',#}
+                                    {#    prompt: '请输入密码'#}
+                                    {#\},#}
+                                    {
+                                        type: 'length[6]',
+                                        prompt: '密码的长度不少于6位'
+                                    }
+                                ]
+                            }
+                        }
+                    })
+                ;
+            })
+        ;
+    </script>
+</head>
+<body class="snow-container" style="background-image: url({% static 'img/snow.jpg' %});">
+<div class="ui middle aligned center aligned grid" style="margin-top: -100vh;opacity: 0.9;">
+    <div class="column" id="ma" style="position: fixed;">
+        <h2 class="ui header" style="color: #eee;">
+            <div class="content" style="padding-top: 15px;font-size: 1.5em;">
+                欢迎来到
+            </div>
+            <img src="{% static 'img/web.png' %}" style="width:140px">
+
+        </h2>
+        <form class="ui large form" method="post">
+            {% csrf_token %}
+            <div class="ui stacked segment">
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input type="text" name="email" placeholder="E-mail 地址">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="lock icon"></i>
+                        <input type="password" name="password" placeholder="密码">
+                    </div>
+                </div>
+                <div class="ui fluid large blue submit button">登陆</div>
+            </div>
+
+            <div class="ui error message"></div>
+
+        </form>
+
+        <div class="ui message">
+            加入我们？ <a href="{% url 'register' %}">请注册</a>
+        </div>
+    </div>
+
+
+</div>
+{% if messages %}
+    <script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}');
+        {% endfor %}
+    </script>
+{% endif %}
+</body>
+
+</html>
+<script src="{% static 'js/snow.js' %}"></script>

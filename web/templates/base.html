@@ -1,0 +1,160 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ch">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}首页(试运行){% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/semantic.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    {% block style %}
+
+    {% endblock %}
+
+    <style>
+        #app {
+            background-image: url("{% static 'img/cloud.jpg' %}");
+        }
+
+        .el-carousel__item h3 {
+            color: #475669;
+            font-size: 14px;
+            opacity: 0.75;
+            line-height: 200px;
+            margin: 0;
+        }
+
+        .el-carousel__item:nth-child(2n) {
+            background-color: #99a9bf;
+        }
+
+        .el-carousel__item:nth-child(2n+1) {
+            background-color: #d3dce6;
+        }
+
+        .ui.menu {
+            opacity: 0.80;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    {% block app %}
+
+    <!--导航开始-->
+    <div class="ui top fixed borderless menu">
+        {% block menu %}
+        <div class="item">
+            <a href="{% url 'index' %}"><b>ZT Online Judge</b></a>
+            <!--<img src="{% static 'img/web.png' %}" style="height: 50px;width: 120px">-->
+        </div>
+        <a class="{% ifequal page 'index' %}active blue{% endifequal %} item" href="{% url 'index' %}">首页</a>
+        <a class="{% ifequal page 'problems' %}active blue{% endifequal %} item"
+           href="{% url 'problems' %}">试题榜</a>
+        <a class="{% ifequal page 'contests' %}active blue{% endifequal %} item" href="{% url 'contests' %}">竞赛&作业</a>
+        <a class="{% ifequal page 'ranklist' %}active blue{% endifequal %} item"
+           href="{% url 'ranklist' %}">排名</a>
+        <div class="right menu">
+            <div class="item">
+                {% if not request.session.user %}
+                <div class="ui buttons">
+                    <a class="ui button" href="{% url 'register' %}">注册</a>
+                    <div class="or"></div>
+                    <a class="ui primary button" href="{% url 'login' %}">登陆</a>
+                </div>
+                {% else %}
+                <div class="ui inline dropdown">
+                    <img
+                            class="ui dropdown"
+                            style="height: 36px;width: 36px;margin-right: 10px"
+                            src="{% static 'bitbug_favicon.ico' %}">
+                    <div class="menu">
+                        <div class="item"><a href="{% url 'personal' %}">个人页面</a></div>
+                        <div class="item"><a href="{% url 'logout' %}">登出</a></div>
+                    </div>
+                </div>
+
+                {% endif %}
+            </div>
+        </div>
+        {% endblock %}
+    </div>·
+    <!--导航开始-->
+
+    <!--公告开始-->
+    <div class="right ui rail" style="left: 72vw;width: 20vw;padding: 95px 5px 10px 5px;">
+        {% block rail %}
+        <div class="ui piled segments">
+            <div class="ui yellow segment">
+                <h3 class="ui header">学生参加训练赛流程：</h3>
+                <div><li>在系统注册账号，即可直接登录（请忽略验证邮件步骤）</li>
+                <li>从比赛列表中找到对应的比赛名称</li>
+                <li>开赛时间到达后，点击比赛名称会邀请输入参赛密码</li>
+                <li>进入竞赛信息页，可以查看题目，以及榜单。</li></div>
+            </div>
+            <div class="ui orange segment">
+                <h3 class="ui header">ZT Online Judge 0.1 bate</h3>
+                <p>项目试运行</p>
+            </div>
+            <div class="ui blue segment">
+                <h3 class="ui header" style="text-align: center">开发者声明</h3>
+                <p>ZT Online Judge 0.1 bate<br>
+                    Copyright © 2018. All Rights Reserved.<br>
+                    设计 & 开发者 : 佐鑫，土豆豆</p>
+                <p>问题 & 反馈 : 佐鑫 &nbsp; &lt;<a href="mailto:zuoxin7@outlook.com">zuoxin7@outlook.com</a>&gt;
+                    <br>
+                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;土豆豆 &nbsp; &lt;<a
+                            href="mailto:ctudoudou@foxmail.com">ctudoudou@foxmail.com</a>&gt;
+                </p>
+            </div>
+        </div>
+        {% endblock %}
+    </div>
+    <!--公告结束-->
+
+    {% if messages %}
+    <script>
+        {% for msg in messages %}
+        alert('{{ msg.message }}');
+        {% endfor %}
+    </script>
+    {% endif %}
+
+    <!--左正文开始-->
+    <div style="height: 150vh;padding: 60px 10px 20px 15px;" id="content">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+    <!--左正文结束-->
+
+    {% endblock %}
+
+
+</div>
+
+</body>
+
+</html>
+
+<!-- 引入组件库 -->
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/semantic.min.js' %}"></script>
+<script src="{% static 'js/vue.min.js' %}"></script>
+<script src="{% static 'js/index.js' %}"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: function () {
+            return {visible: false}
+        }
+    })
+</script>
+<script>
+    $('.dropdown')
+        .dropdown({
+            // you can use any ui transition
+            transition: 'drop'
+        })
+    ;
+</script>
+{% block script %}{% endblock %}

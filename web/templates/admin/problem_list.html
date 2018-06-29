@@ -1,0 +1,26 @@
+{% extends 'admin/admin.html' %}
+{% load static %}
+{% block content %}
+    <div class="ui middle aligned selection list">
+        {% for problem in problems %}
+            <div class="item">
+                <div class="content">
+                    <a><div class="header" style="float: left; font-size: 20px; line-height: 30px">{{ problem.title }}</div></a>
+                    <div class="ui button info" style="float: left" id="{{ problem.problem_id }}">查看详情</div>
+                    <div class="ui button download" style="float: left" id="{{ problem.problem_id }}">添加样例</div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+
+{% block script %}
+    <script>
+        $('.ui.button.info').click(function () {
+            window.open('#' + this.id, 'newwindow', 'height=500, width=800, top=0,left=0, toolbar=no, menubar=no, resizable=no,location=no,status=no');
+        });
+        $('.ui.button.download').click(function () {
+            window.open('{% url 'problem_add_example' %}' + this.id, 'newwindow', 'height=500, width=800, top=0,left=0, toolbar=no, menubar=no, resizable=no,location=no,status=no');
+        });
+    </script>
+{% endblock %}

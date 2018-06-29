@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block style %}
+    <style>
+        p {
+            font-size: 1.05em
+        }
+
+        ol > li {
+            font-size: 1.05em;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <!--竞赛试题-->
+    <div style="width: 70vw;margin-top: 5vh">
+        <div class="ui three stackable cards">
+            {% for foo in list %}
+                <a class="ui card" href="{% url 'problem' %}{{ foo.0.problem_id }}" style="opacity: 0.85;">
+                    <div class="content">
+                        <div class="header">{{ foo.0.title }}</div>
+                    </div>
+                    <div class="content" style="padding-left: 20px;">
+                        <div class="description">
+                            <ol class="ui list">
+                                <li>{% if foo.2.0 %}{{ foo.2.0.email.username }}{% else %}无{% endif %}</li>
+                                <li>{% if foo.2.1 %}{{ foo.2.1.email.username }}{% else %}无{% endif %}</li>
+                                <li>{% if foo.2.2 %}{{ foo.2.2.email.username }}{% else %}无{% endif %}</li>
+                            </ol>
+                        </div>
+                    </div>
+                    {% if foo.1 %}
+                        <div class="ui bottom attached green button"><i class="checkmark icon"></i> 已解决</div>
+                    {% else %}
+                        <div class="ui bottom attached orange button"><i class="remove icon"></i> 未解决</div>
+                    {% endif %}
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+    <!--热门比赛结束-->
+{% endblock %}
+
+{% block rail %}
+    <div class="ui piled segments" style="opacity: 0.85;">
+        <div class="ui purple segment" style="text-align: center">
+            <h3 class="ui header">比赛计时器</h3>
+            {% if finish %}<p>比赛已结束</p>{% else %}<p style="color: red">比赛进行中</p><p style="color: green">比赛结束时间</p><p style="color: blue">{{ contest.stop_time }}</p>{% endif %}
+        </div>
+    </div>
+    <div class="ui piled segments" style="opacity: 0.85;">
+        <div class="ui orange segment" style="text-align: center">
+            <h3 class="ui header">你的排名</h3>
+            <p>排名:{{ mingci }}&emsp;&emsp;解题数量:{{ source }}&emsp;&emsp;</p>
+            <p><a href="{% url 'contestrank' %}{{ contest.competition_name }}">总排名榜</a></p>
+        </div>
+    </div>
+    <div class="ui piled segments" style="opacity: 0.85;">
+        <div class="ui yellow segment">
+            <h3 class="ui header" style="text-align: center">比赛通知</h3>
+            <ul class="ui list">
+                <li>合作企业将根据考生成绩提供一定量的内推机会，希望大家认真对待，好好发挥。</li>
+                <li>模拟考试旨在帮助学生了解自身的竞争力，进而改进提高，成绩不理想也不会对未来求职造成任何影响。</li>
+                <li>模拟考试不是企业实习/校招的替代考试，正式求职还需通过企业的官方渠道进行。</li>
+                <li>根据合作企业要求，考生必须完善简历才可加入企业人才库，获得内推机会。</li>
+            </ul>
+        </div>
+    </div>
+    <div class="ui piled segments" style="opacity: 0.85;">
+
+        <div class="ui blue segment">
+            <h3 class="ui header" style="text-align: center">开发者声明</h3>
+            <p>ZT Online Judge 0.1 bate<br>
+                Copyright © 2018. All Rights Reserved.<br>
+                设计 & 开发者 : 佐鑫，土豆豆</p>
+            <p>问题 & 反馈 : 佐鑫 &nbsp; &lt;<a href="mailto:zuoxin7@outlook.com">zuoxin7@outlook.com</a>&gt;
+                <br>
+                &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;土豆豆 &nbsp; &lt;<a
+                        href="mailto:ctudoudou@foxmail.com">ctudoudou@foxmail.com</a>&gt;
+            </p>
+        </div>
+    </div>
+{% endblock %}

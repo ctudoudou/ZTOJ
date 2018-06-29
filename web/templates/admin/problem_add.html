@@ -1,0 +1,55 @@
+{% extends 'admin/admin.html' %}
+{% load static %}
+
+{% block content %}
+    <!--创建问题开始-->
+    <div class="raised">
+        <div style="float: left" class="ui raised very padded text secondary segment">
+            <h1>Add Example</h1>
+
+            <form class="ui form" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="fields" style="margin-left: 1px">
+                    {#                    <div class=class="field">#}
+                    {#                        <label style="color: red">* </label><label>题目名称</label>#}
+                    {#                        <input type="text" name="title" placeholder="">#}
+                    {#                    </div>#}
+                    <div class=class="field" style="margin-left: 0;">
+                        <label style="color: red">* </label><label>样例代码语言</label>
+                        <select name="language">
+                            <option value="C++">C++</option>
+                            <option value="C">C</option>
+                            <option value="java">java</option>
+                            <option value="pascal">pascal</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div style="float: left; width: 800px">
+                    <label style="color: red">* </label><label>代码</label>
+                    <div>
+                        <textarea style="width: 135vh;height: 120vh" name="code"></textarea>
+                    </div>
+                </div>
+
+                <div style="float: left; width: 800px">
+                    <div style="float: left; width: 400px">
+                        <label style="color: red">* </label><label>输入</label>
+                        <div>
+                            <textarea style="width: 65vh;height: 45vh" name="sinput"></textarea>
+                        </div>
+                    </div>
+                    <div style="float: left; width: 400px;padding-left:40px">
+                        <label style="color: red">* </label><label>输出</label>
+                        <div>
+                            <textarea style="width: 65vh;height: 45vh" name="soutput"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" style="float: left">提交</button>
+            </form>
+        </div>
+
+    </div>
+    <!--创建问题结束-->
+{% endblock %}

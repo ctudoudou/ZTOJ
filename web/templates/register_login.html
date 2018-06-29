@@ -1,0 +1,162 @@
+{% load static %}
+<!DOCTYPE html>
+<html class="login-content ng-scope" data-ng-app="materialAdmin" lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"><style type="text/css">.ng-animate.item:not(.left):not(.right){-webkit-transition:0s ease-in-out left;transition:0s ease-in-out left}</style><style type="text/css">@charset "UTF-8";[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\:form{display:block;}</style>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="Generator" content="EditPlus®">
+  <meta name="Author" content="">
+  <meta name="Keywords" content="">
+  <meta name="Description" content="">
+  <title>Material Admin</title>
+
+  <!-- Vendor CSS -->
+  <link href="{% static 'css/login/material-design-iconic-font.css' %}" rel="stylesheet" type="text/css">
+  <!-- CSS -->
+  <link href="{% static 'css/login/app.css' %}" rel="stylesheet" type="text/css">
+ </head>
+ <body class="login-content ng-scope" data-ng-controller="loginCtrl as lctrl">
+
+    <div class="lc-block" id="l-login" data-ng-class="{'toggled':lctrl.login === 1}">
+    	<h1 class="lean">登录</h1>
+
+    	<div class="input-group m-b-20">
+    		<span class="input-group-addon">
+    			<i class="zmdi zmdi-account"></i>
+    		</span>
+    		<div class="fg-line">
+    			<input class="form-control" placeholder="Username" regex="^\w{3,16}$" type="text">
+    		</div>
+    	</div>
+
+        <div class="input-group m-b-20">
+    		<span class="input-group-addon">
+    			<i class="zmdi zmdi-male"></i>
+    		</span>
+    		<div class="fg-line">
+    			<input class="form-control" placeholder="Password" regex="^\w+" type="password">
+    		</div>
+    	</div>
+
+    	<div class="clearfix"></div>
+
+    	<div class="checkbox">
+    		<label>
+    			<input value="" type="checkbox">
+    			<i class="input-helper">
+    				保持登录状态
+    			</i>
+    		</label>
+    	</div>
+
+    	<a href="" class="btn btn-login btn-danger btn-float">
+    		<i class="zmdi zmdi-arrow-forward"></i>
+    	</a>
+
+        <ul class="login-navigation">
+        	<li class="bgm-red" data-ng-click="lctrl.login = 0; lctrl.register = 1">Register</li>
+        	<li data-block="#l-forget-password" class="bgm-orange" data-ng-click="lctrl.login = 0; lctrl.forgot = 1">Forgot Password?</li>
+        </ul>
+    </div>
+
+    <!-- ngIf: lctrl.register === 1 -->
+
+    <!-- ngIf: lctrl.forgot === 1 --><div class="lc-block ng-scope toggled" id="l-forget-password" data-ng-class="{ 'toggled': lctrl.forgot === 1 }" data-ng-if="lctrl.forgot === 1">
+    	<h1 class="lean">找回密码</h1>
+    	<p class="text-left">Lorem ipsum dolor sit amet, consectetur
+adipiscing elit. Nulla eu risus. Curabitur commodo lorem fringilla enim
+feugiat commodo sed ac lacus.</p>
+    	<div class="input-group m-b-20">
+	      <span class="input-group-addon"><i class="zmdi zmdi-email"></i></span>
+	      <div class="fg-line">
+	        <input class="form-control" placeholder="Email Address" regex="^\w+@\w+\.[a-zA-Z]+(\.[a-zA-Z]+)?$" type="text">
+	      </div>
+	    </div>
+
+	    <a href="" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></a>
+
+	    <ul class="login-navigation">
+	      <li data-block="#l-login" class="bgm-green" data-ng-click="lctrl.forgot = 0; lctrl.login = 1">Login</li>
+	      <li data-block="#l-register" class="bgm-red" data-ng-click="lctrl.forgot = 0; lctrl.register = 1">Register</li>
+	    </ul>
+    </div><!-- end ngIf: lctrl.forgot === 1 -->
+
+
+
+    <!-- ngIf: lctrl.register === 1 --><div class="lc-block ng-scope toggled" id="l-register" data-ng-class="{ 'toggled': lctrl.register === 1 }" data-ng-if="lctrl.register === 1">
+    	<h1 class="lean">注册</h1>
+
+    	<div class="input-group m-b-20">
+    		<span class="input-group-addon">
+    			<i class="zmdi zmdi-account"></i>
+    		</span>
+    		<div class="fg-line">
+    			<input class="form-control" placeholder="Username" regex="^\w{3,16}$" type="text">
+    		</div>
+    	</div>
+
+        <div class="input-group m-b-20">
+    		<span class="input-group-addon">
+    			<i class="zmdi zmdi-email"></i>
+    		</span>
+    		<div class="fg-line">
+    			<input class="form-control" placeholder="Email Address" regex="^\w+@\w+\.[a-zA-Z]+(\.[a-zA-Z]+)?$" type="text">
+    		</div>
+    	</div>
+
+        <div class="input-group m-b-20">
+    		<span class="input-group-addon">
+    			<i class="zmdi zmdi-male"></i>
+    		</span>
+    		<div class="fg-line">
+    			<input class="form-control" placeholder="Password" regex="^\w+" type="password">
+    		</div>
+    	</div>
+
+    	<div class="clearfix"></div>
+
+    	<div class="checkbox">
+    		<label>
+    			<input value="" type="checkbox">
+    			<i class="input-helper"></i>
+    			接受许可协议
+    		</label>
+    	</div>
+
+    	<a href="" class="btn btn-login btn-danger btn-float"><i class="zmdi zmdi-arrow-forward"></i></a>
+
+    	<ul class="login-navigation">
+	      <li data-block="#l-login" class="bgm-green" data-ng-click="lctrl.register = 0; lctrl.login = 1">Login</li>
+	      <li data-block="#l-forget-password" class="bgm-orange" data-ng-click="lctrl.register = 0; lctrl.forgot = 1">Forgot Password?</li>
+	    </ul>
+    </div><!-- end ngIf: lctrl.register === 1 -->
+
+    <!-- ngIf: lctrl.forgot === 1 -->
+
+
+ 	<script src="{% static 'js/login/jquery.js' %}"></script><script src="{% static 'js/login/jquery_002.js' %}"></script>
+	<!-- Angular -->
+	<script src="{% static 'js/login/angular.js' %}"></script>
+	<script src="{% static 'js/login/angular-resource.js' %}"></script>
+	<script src="{% static 'js/login/angular-animate.js' %}"></script>
+
+
+	<!-- Angular Modules -->
+	<script src="{% static 'js/login/angular-ui-router.js' %}"></script>
+	<script src="{% static 'js/login/loading-bar.js' %}"></script>
+	<script src="{% static 'js/login/ocLazyLoad.js' %}"></script>
+	<script src="{% static 'js/login/ui-bootstrap-tpls.js' %}"></script>
+
+	<!-- Common js -->
+	<script src="{% static 'js/login/nouislider.js' %}"></script>
+	<script src="{% static 'js/login/ng-table.js' %}"></script>
+
+	<!-- App level -->
+	<script src="{% static 'js/login/app.js' %}"></script>
+	<script src="{% static 'js/login/main.js' %}"></script>
+	<script src="{% static 'js/login/ui-bootstrap.js' %}"></script>
+
+
+	<!-- Template Modules -->
+	<script src="{% static 'js/login/form.js' %}"></script>
+</body></html>
